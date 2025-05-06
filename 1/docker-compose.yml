@@ -1,0 +1,63 @@
+version: '3.3'
+services:
+
+  # chown -R gaga:gaga /home/gaga/proj3
+  # docker-compose up -d         // run  Daemon mode
+  # docker-compose down          // Off
+  # docker-compose up --build    // renew
+  # docker ps
+  # docker exec -it  -namecont- bash  (OR sh)
+  # I love this project for dev purpose, I let you check more about it here: https://github.com/maildev/maildev
+  # it's optional and I won't go in detail about it now
+  mail:
+    image: maildev/maildev
+    container_name: maildev3
+    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+    ports:
+      - "8083:80"
+    restart: "no"
+    networks:
+     - network3
+
+  memcached:
+    image: 'bitnami/memcached:latest'
+    networks:
+      - network3
+
+  webapache3:
+    build:
+      context: .
+      dockerfile: Dockerfile_web
+    image: httpd
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/usr/local/apache2/htdocs
+    container_name: webapache3
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - network3
+
+  php3:
+    build:
+      context: .
+      dockerfile: Dockerfile_php
+    image: php:8.2-fpm
+    container_name: php3
+    restart: unless-stopped
+    tty: true
+    #working_dir: /var/www
+    volumes:
+     - /home/gaga/proj3/local.ini:/usr/local/etc/php/php.ini
+    # /usr/local/etc/php/conf.d/...
+    networks:
+     - network3
+
+# Docker Networks
+networks:
+  network3:
+    driver: bridge

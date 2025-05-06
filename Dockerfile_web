@@ -1,0 +1,19 @@
+FROM httpd
+#:2.4
+
+WORKDIR /home/gaga/proj3
+
+# RUN mkdir -p /var/lib/apt/lists/partial
+
+RUN apt-get update
+#RUN apt-get install nano
+RUN apt-get install less 
+RUN apt-get install btop 
+#RUN apt-get install mc
+
+# proxy_fcgi_module  - exist?
+# CLI :  apachectl -M | grep proxy_fcgi
+# if NOT found  then  ON
+# a2enmod proxy_fcgi
+# systemctl restart apache2
+
