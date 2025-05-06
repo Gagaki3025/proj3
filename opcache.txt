@@ -1,3 +1,5 @@
+1)
+
 First, you will install the Opcache extension with the following command:
 
 apt-get install php-opcache php-fpm -y
