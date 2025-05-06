@@ -1,8 +1,8 @@
 1)
 
-First, you will install the Opcache extension with the following command:
+Fi__rst, you will install the Opcache extension with the following command:
 
-apt-get install php-opcache php-fpm -y
+apt-get  install php-opcache php-fpm -y
 
 Then you can enable the Opcache extension in the php.ini file and open the php.ini file with your favorite editor.
 
