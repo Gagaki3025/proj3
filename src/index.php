@@ -1,8 +1,10 @@
 <?php
 
- phpinfo();
+ require 'vendor/autoload.php';
 
- echo "2111";
+// phpinfo();
+
+ echo "S1";
 
 // PHP или Apache в httpd может достучаться до php по:
 // http://proj3-php8.2-fpm:9000
@@ -17,7 +19,6 @@
 // var_dump($memcached);
 
 
-/*
 $mail = new PHPMailer\PHPMailer\PHPMailer();
 $mail->isSMTP();
 $mail->Host = 'proj3-maildev'; // имя контейнера!
@@ -28,7 +29,6 @@ $mail->addAddress('igor@aviaparts.kiev.ua');
 $mail->Subject = 'Тест';
 $mail->Body = 'Сообщение';
 $mail->send();
-*/
 
 
 
