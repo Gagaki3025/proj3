@@ -37,7 +37,8 @@ services:
     volumes:
       - ./src:/usr/local/apache2/htdocs
     container_name: proj3-httpd
-    restart: unless-stopped
+    # раскомментируйте следующую строку, если вы запускаете это в продакшн среде
+    # restart: unless-stopped
     tty: true
     ports:
 #      - "8080:80"    if ports local  busy
@@ -47,6 +48,30 @@ services:
     networks:
       - network3
 
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile_apache_php
+    image: proj3-php-8.2-apache
+    container_name: proj3-apache-php
+    ports:
+      - "8080:80"
+    # раскомментируйте следующую строку, если вы запускаете это в продакшн среде
+    # restart: always
+    volumes:
+      - ./src:/var/www/html
+# FIRST copy from image
+#docker cp proj3-apache-php:/usr/local/etc/php/php.ini-development ./config/php.ini
+#docker cp proj3-apache-php:/usr/local/etc/php/php.ini-production ./config/php.ini
+      - ./config/php.ini:/usr/local/etc/php/php.ini
+# FIRST copy from image
+#docker cp proj3-apache-php:/etc/apache2/sites-available/000-default.conf ./config/apache.conf
+      - ./config/apache.conf:/etc/apache2/sites-enabled/000-default.conf
+    networks:
+      - network3
+
+
   php:
     # собрать образ и назвать proj3/php:8.2-fpm
     build:
@@ -54,7 +79,8 @@ services:
       dockerfile: Dockerfile_php
     image: proj3-php:8.2-fpm
     container_name: proj3-php8.2-fpm
-    restart: unless-stopped
+    # раскомментируйте следующую строку, если вы запускаете это в продакшн среде
+    # restart: unless-stopped
     tty: true
     #working_dir: /var/www
     volumes:
