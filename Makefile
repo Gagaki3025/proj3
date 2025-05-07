@@ -8,6 +8,12 @@ install-laravel:
 install-phpmailer:
 	docker-compose exec $(CONTAINER) sh -c "cd $(WORKDIR) && composer require phpmailer/phpmailer"
 
+fix-permission:
+docker-compose exec $(CONTAINER) sh -c "chown -R www-data:www-data /var/www/html/storage/"
+docker-compose exec $(CONTAINER) sh -c "chmod -R 775 /var/www/html/storage/"
+docker-compose exec $(CONTAINER) sh -c "chown -R www-data:www-data /var/www/html/bootstrap/cache/"
+docker-compose exec $(CONTAINER) sh -c "chmod -R 775 /var/www/html/bootstrap/cache/"
+
 
 #make install-phpmailer
 #make install-laravel
@@ -16,7 +22,7 @@ install-phpmailer:
 # OR  docker-compose exec web sh
 
 #// composer require phpmailer/phpmailer
-#// composer create-project laravel/laravel src
+#// composer create-project laravel/laravel .
 
 
 
