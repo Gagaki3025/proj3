@@ -1,24 +1,23 @@
-# Зависимости PHP
-/vendor/
-
-# Зависимости NodeJS (если используешь npm, например в Laravel)
-node_modules/
-
-# Файлы окружения
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
 .env
-.env.*.local
-
-# Логи
-*.log
-/storage/logs/
-/storage/framework/sessions/
-/storage/framework/views/
-/storage/framework/cache/
-
-# IDE
-.idea/
-.vscode/
-
-# Системные
-.DS_Store
-Thumbs.db
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/auth.json
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed

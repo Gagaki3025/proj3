@@ -26,8 +26,8 @@ $mail->Port = 1025;
 $mail->SMTPAuth = false;
 $mail->setFrom('igor@aviaparts.kiev.ua');
 $mail->addAddress('igor@aviaparts.kiev.ua');
-$mail->Subject = 'Тест';
-$mail->Body = 'Сообщение';
+$mail->Subject = '3211123';
+$mail->Body = '123';
 $mail->send();
 
 
