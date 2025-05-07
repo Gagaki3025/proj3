@@ -7,6 +7,8 @@ WORKDIR /home/gaga/proj3
 # COPY composer.lock composer.json /var/www/
 # for new project  composer.json  to create by  composer init
 
+USER root
+
 RUN     apt-get update && apt-get install -y \
 	build-essential locales zip \
 	jpegoptim optipng pngquant gifsicle \

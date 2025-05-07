@@ -10,52 +10,58 @@ services:
   # I love this project for dev purpose, I let you check more about it here: https://github.com/maildev/maildev
   # it's optional and I won't go in detail about it now
   mail:
+    # скачать образ
     image: maildev/maildev
-    container_name: maildev3
-    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+    container_name: proj3-maildev
+    command: bin/maildev --web 8088 --smtp 1025 --hide-extensions STARTTLS
     ports:
-      - "8083:80"
+      - "8088:8088"
+      - "1025:1025"
     restart: "no"
-    networks:
-     - network3
-
-  memcached:
-    image: 'bitnami/memcached:latest'
     networks:
       - network3
 
-  webapache3:
+  memcached:
+    # скачать образ
+    image: 'bitnami/memcached:latest'
+    container_name: proj3-memcached
+    networks:
+      - network3
+
+  httpd:
+    # собрать образ и назвать proj3/httpd
     build:
       context: .
       dockerfile: Dockerfile_web
-    image: httpd
-    ports:
-      - 80:80
+    image: proj3-httpd
     volumes:
       - ./src:/usr/local/apache2/htdocs
-    container_name: webapache3
+    container_name: proj3-httpd
     restart: unless-stopped
     tty: true
     ports:
+#      - "8080:80"    if ports local  busy
+#      - "8443:443"
       - "80:80"
       - "443:443"
     networks:
       - network3
 
-  php3:
+  php:
+    # собрать образ и назвать proj3/php:8.2-fpm
     build:
       context: .
       dockerfile: Dockerfile_php
-    image: php:8.2-fpm
-    container_name: php3
+    image: proj3-php:8.2-fpm
+    container_name: proj3-php8.2-fpm
     restart: unless-stopped
     tty: true
     #working_dir: /var/www
     volumes:
-     - /home/gaga/proj3/local.ini:/usr/local/etc/php/php.ini
+      - /home/gaga/proj3/local.ini:/usr/local/etc/php/php.ini
     # /usr/local/etc/php/conf.d/...
     networks:
-     - network3
+      - network3
 
 # Docker Networks
 networks:
