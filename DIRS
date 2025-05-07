@@ -1,0 +1,10 @@
+/project-laravel/
+├── docker-compose.yml
+├── Dockerfile
+├── src/
+│   ├── app/
+│   ├── vendor/           ✅ тут правильно
+│   ├── public/           ✅ тут правильно
+│   ├── composer.json
+│   └── artisan
+

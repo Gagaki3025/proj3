@@ -1,16 +1,28 @@
 FROM php:8.2-apache
 
 # Установка зависимостей и скрипта расширений
-RUN apt-get update && apt-get install -y git curl unzip \
+RUN apt-get update && apt-get install -y \
+    libzip-dev git curl zip unzip \
+    libpng-dev libjpeg-dev libonig-dev libxml2-dev \
+#   /// 1 variant установка через внешний скипт 
     && curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
         -o /usr/local/bin/install-php-extensions \
-    && chmod +x /usr/local/bin/install-php-extensions
-
+    && chmod +x /usr/local/bin/install-php-extensions \
 # Установка нужных расширений
-RUN install-php-extensions \
+    && install-php-extensions \
     pdo_mysql \
     gd \
     intl \
     zip \
     memcached \
     opcache
+
+#   /// ili 2 variant PHP-ext  установки
+#   && docker-php-ext-install gd intl memcached opcache
+#   memcached   via pecl !
+
+# Установим Composer
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+
+WORKDIR /var/www/html
+
