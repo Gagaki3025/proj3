@@ -1,1 +1,14 @@
 /mysql
+/pgsql
+*.cnf
+
+composer.lock
+package-lock.json
+yarn.lock
+
+*.swp
+*.swo
+.idea/
+.vscode/
+
+*.log
