@@ -48,7 +48,6 @@ services:
     networks:
       - network3
 
-
   web:
     build:
       context: .
@@ -71,6 +70,21 @@ services:
     networks:
       - network3
 
+  db3:
+    image: mariadb:11.7.2
+    container_name: proj3-mysql
+    volumes:
+      - /home/gaga/proj3/mysql:/var/lib/mysql
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: laravel
+      MARIADB_USER: laravel
+      MARIADB_PASSWORD: secret1
+    networks:
+      - network3
 
   php:
     # собрать образ и назвать proj3/php:8.2-fpm
