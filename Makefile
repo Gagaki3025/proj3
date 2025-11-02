@@ -4,6 +4,8 @@ WORKDIR=/var/www/html
 install-laravel:
 	docker-compose exec $(CONTAINER) sh -c "cd $(WORKDIR) && composer create-project laravel/laravel ."
 	docker-compose exec $(CONTAINER) sh -c "cd $(WORKDIR) && composer require phpmailer/phpmailer"
+	docker-compose exec $(CONTAINER) sh -c "cd $(WORKDIR) && composer require openai-php/laravel"
+	docker-compose exec $(CONTAINER) sh -c "php artisan openai:install"
 	sudo chown -R gaga:gaga src/
 
 fix-permission:
@@ -12,11 +14,10 @@ fix-permission:
 	docker-compose exec $(CONTAINER) sh -c "chmod -R 775 $(WORKDIR)/storage"
 	docker-compose exec $(CONTAINER) sh -c "chmod -R 775 $(WORKDIR)/bootstrap/cache"
 
-mariadb-laravel-init:
+laravel-ai-init:
 	docker-compose exec $(CONTAINER) sh -c "php artisan migrate"
-
-
-
+	docker-compose exec $(CONTAINER) sh -c "a2enmod rewrite"
+	docker-compose exec $(CONTAINER) sh -c "service apache2 restart"
 
 
 
